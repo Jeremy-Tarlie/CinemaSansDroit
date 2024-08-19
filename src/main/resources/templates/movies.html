@@ -9,10 +9,12 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Welcome, Guest!</h1>
-        <p>This is a simple example using Bootstrap with Thymeleaf.</p>
-    </div>
+	<h1>Movies List</h1>
+	    <ul>
+	        <li th:each="movie : ${movies}">
+	            <span th:text="${movie.title}"></span>
+	        </li>
+	    </ul>
 
     <!-- Bootstrap JS and dependencies (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

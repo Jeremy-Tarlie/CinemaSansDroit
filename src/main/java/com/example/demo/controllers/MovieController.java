@@ -12,11 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.Movies;
 import com.example.demo.repositories.MovieRepository;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class MovieController {
 
@@ -27,12 +28,11 @@ public class MovieController {
 	}
 
     @GetMapping("/movies")
-    public ResponseEntity<List<Movies>> seeMovie() {
-    	List<Movies> movies = movieRepository.findAll();
-    	if(movies.size() > 0) {
-    		return ResponseEntity.ok(movies);
-    	}
-    	return ResponseEntity.notFound().build();
+    public String seeAllMovie(Model model) {
+        List<Movies> movies = movieRepository.findAll();
+        model.addAttribute("movies", movies);
+        System.out.println("je passe ici");
+        return "movies";
     }
     
     @GetMapping("/movies/{id}")
@@ -42,7 +42,7 @@ public class MovieController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/movies/search")
+    @GetMapping("/search")
     public ResponseEntity<Page<Movies>> searchMovie(
             @RequestParam String title,
             @RequestParam(defaultValue = "0") int page,
