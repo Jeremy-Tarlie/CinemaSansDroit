@@ -12,7 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entities.Movie;
+import com.example.demo.entities.Movies;
 import com.example.demo.repositories.MovieRepository;
 
 @Service
@@ -22,15 +22,15 @@ public class MovieService {
 	@Autowired
     private static MovieRepository movieRepository;
 
-    public static List<Movie> getAllMovies() {
+    public static List<Movies> getAllMovies() {
         return movieRepository.findAll();
     }
 
-    public static Optional<Movie> getMovieById(Long id) {
+    public static Optional<Movies> getMovieById(Long id) {
         return movieRepository.findById(id);
     }
 
-    public List<Movie> getMoviesByTitleContaining(String keyword, int take, int skip) {
+    public List<Movies> getMoviesByTitleContaining(String keyword, int take, int skip) {
         // Create a PageRequest object for pagination
         PageRequest pageable = PageRequest.of(skip / take, take);
         
